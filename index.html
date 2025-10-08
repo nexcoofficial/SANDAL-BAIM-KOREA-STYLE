@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANDAL BAIM KOREA STYLE - Premium Fashion Collection</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-black: #000000;
+            --dark-gray: #4a4a4a;
+            --light-gray: #9a9a9a;
+            --pure-white: #ffffff;
+            --silver-accent: #c0c0c0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--pure-white);
+            color: var(--dark-gray);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lato', sans-serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--dark-gray);
+            border-radius: 5px;
+        }
+        
+        /* Hero Section */
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(74,74,74,0.7) 100%);
+        }
+        
+        /* Product Gallery */
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+        
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s;
+        }
+        
+        .lightbox.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: var(--pure-white);
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Testimonial Carousel */
+        .testimonial-carousel {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial-card {
+            min-width: 100%;
+            padding: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-card {
+                min-width: 50%;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .testimonial-card {
+                min-width: 33.333%;
+            }
+        }
+        
+        /* Social Proof Popup */
+        .social-proof-popup {
+            position: fixed;
+            top: 20px;
+            right: -400px;
+            background: var(--pure-white);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-left: 4px solid var(--silver-accent);
+            z-index: 1000;
+            transition: right 0.5s ease;
+            max-width: 350px;
+        }
+        
+        .social-proof-popup.active {
+            right: 20px;
+        }
+        
+        .social-proof-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        /* OrderOnline Form Customization */
+        .orderonline-embed-form {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .orderonline-embed-form input,
+        .orderonline-embed-form select,
+        .orderonline-embed-form textarea {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            font-family: 'Source Sans Pro', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .orderonline-embed-form input:focus,
+        .orderonline-embed-form select:focus,
+        .orderonline-embed-form textarea:focus {
+            outline: none;
+            border-color: var(--dark-gray);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+        
+        .orderonline-embed-form button {
+            background: var(--primary-black);
+            color: var(--pure-white);
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .orderonline-embed-form button:hover {
+            background: var(--dark-gray);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Color Variant Selector */
+        .color-variant {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        .color-variant:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-variant.selected {
+            border-color: var(--primary-black);
+            box-shadow: 0 0 0 2px var(--pure-white), 0 0 0 4px var(--primary-black);
+        }
+        
+        /* Size Selector */
+        .size-option {
+            padding: 10px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+            font-weight: 600;
+        }
+        
+        .size-option:hover {
+            border-color: var(--dark-gray);
+            background: var(--pure-white);
+        }
+        
+        .size-option.selected {
+            background: var(--primary-black);
+            color: var(--pure-white);
+            border-color: var(--primary-black);
+        }
+        
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .animate-slide-up {
+            animation: slideInUp 0.6s ease forwards;
+        }
+        
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--primary-black);
+            color: var(--pure-white);
+            padding: 15px;
+            text-align: center;
+            z-index: 999;
+            transition: bottom 0.3s ease;
+        }
+        
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+        
+        /* Trust Badges */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Countdown Timer */
+        .countdown-timer {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .countdown-item {
+            background: var(--primary-black);
+            color: var(--pure-white);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .countdown-label {
+            font-size: 12px;
+            opacity: 0.8;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/cba2930e41314e1ba43f17fb97466fdf~tplv-aphluv4xwc-resize-webp:800:800.webp?dr=15584&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=my2&from=1826719393" alt="Sandal Baim Korea Style" class="w-full h-full object-cover">
+            <div class="hero-gradient absolute inset-0"></div>
+        </div>
+        
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 animate-slide-up" style="font-family: 'Lato', sans-serif;">
+                SANDAL BAIM KOREA STYLE
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 animate-slide-up" style="animation-delay: 0.2s;">
+                Fashion Premium dengan Kenyamanan Maksimal
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-8 animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="trust-badge">
+                    <i data-feather="check-circle" class="w-5 h-5"></i>
+                    <span>Garansi 100% Original</span>
+                </div>
+<div class="trust-badge">
+                    <i data-feather="shield" class="w-5 h-5"></i>
+                    <span>Pembayaran Aman</span>
+                </div>
+            </div>
+            
+            <button onclick="scrollToProduct()" class="bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 animate-slide-up" style="animation-delay: 0.6s;">
+                BELI SEKARANG
+            </button>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-feather="chevron-down" class="w-8 h-8 text-white"></i>
+        </div>
+    </section>
+    
+    <!-- Product Showcase Section -->
+    <section id="product" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center hovered-element">
+                <!-- Product Gallery -->
+                <div>
+                    <div class="mb-4 hovered-element">
+                        <img id="mainImage" src="https://down-id.img.susercontent.com/file/id-11134207-7ra0m-mcpszo6w2k33e7.webp" alt="Sandal Baim" class="w-full rounded-lg shadow-lg product-image cursor-pointer" onclick="openLightbox(this.src)">
+                    </div>
+                    
+                    <!-- Thumbnail Gallery -->
+                    <div class="grid grid-cols-4 gap-2">
+                        <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0m-mcpszo6w2k33e7.webp" alt="Thumbnail 1" class="w-full rounded cursor-pointer hover:opacity-80 transition" onclick="changeMainImage(this.src)">
+                        <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0n-mcpszo6w3ynje2.webp" alt="Thumbnail 2" class="w-full rounded cursor-pointer hover:opacity-80 transition hovered-element" onclick="changeMainImage(this.src)">
+                        <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0o-mcpszo6w5d7za7.webp" alt="Thumbnail 3" class="w-full rounded cursor-pointer hover:opacity-80 transition" onclick="changeMainImage(this.src)">
+                        <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0u-mcpszo6wce27f4.webp" alt="Thumbnail 4" class="w-full rounded cursor-pointer hover:opacity-80 transition" onclick="changeMainImage(this.src)">
+                    </div>
+                </div>
+                <!-- Product Details -->
+                <div>
+                    <h2 class="text-4xl font-black mb-4" style="font-family: 'Lato', sans-serif;">SANDAL BAIM KOREA STYLE</h2>
+                    
+                    <!-- Price Section -->
+                    <div class="mb-6">
+                        <div class="flex items-center gap-4">
+                            <span class="text-3xl font-bold text-red-600">Rp 178.000</span>
+                            <span class="text-xl text-gray-500 line-through">Rp 299.000</span>
+                            <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">40% OFF</span>
+                        </div>
+                    </div>
+                    <!-- Color Variants -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Pilih Warna:</h3>
+                        <div class="flex gap-3">
+                            <div class="color-variant" onclick="selectColor(this, 'Hitam', 'https://down-id.img.susercontent.com/file/id-11134207-7ra0l-mcpszo6wglrjfc@resize_w450_nl.webp')" style="background-color: #000000;">
+                                <span class="sr-only">Hitam</span>
+                            </div>
+                            <div class="color-variant selected" onclick="selectColor(this, 'Putih', 'https://down-id.img.susercontent.com/file/id-11134207-7ra0t-mcpszo6wf773f7@resize_w450_nl.webp')" style="background-color: #ffffff; border: 1px solid #ccc;">
+                                <span class="sr-only">Putih</span>
+                            </div>
+                            <div class="color-variant" onclick="selectColor(this, 'Abu-abu', 'https://down-id.img.susercontent.com/file/id-11134207-7ra0p-mcptecheweg730@resize_w450_nl.webp')" style="background-color: #9a9a9a;">
+                                <span class="sr-only">Abu-abu</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-2">✓ Semua warna tersedia</p>
+                    </div>
+                    <!-- Size Options -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Pilih Ukuran:</h3>
+                        <div class="flex gap-3">
+                            <div class="size-option selected" onclick="selectSize(this, '39/40')">39/40</div>
+                            <div class="size-option" onclick="selectSize(this, '41/42')">41/42</div>
+                            <div class="size-option" onclick="selectSize(this, '43/44')">43/44</div>
+                        </div>
+                        <div class="mt-3 text-sm text-gray-600">
+                            <p>• 39/40: Panjang 25cm (Cocok untuk 24.5-25cm)</p>
+                            <p>• 41/42: Panjang 26cm (Cocok untuk 25.5-26cm)</p>
+                            <p>• 43/44: Panjang 27cm (Cocok untuk 26.5-27cm)</p>
+                        </div>
+                    </div>
+                    <!-- Product Features -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3">Keunggulan Produk:</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check w-5 h-5 text-green-600 mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Bahan Karet EVA Halus Elastis - Tidak sakit dipakai seharian</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check w-5 h-5 text-green-600 mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Empuk & Nyaman dipakai</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check w-5 h-5 text-green-600 mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Mudah Dibersihkan & Anti Air</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check w-5 h-5 text-green-600 mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Sol Anti Slip Tidak Licin</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check w-5 h-5 text-green-600 mt-0.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Sol Tebal Tinggi 4CM</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Stock Status -->
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                        <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package w-5 h-5 text-green-600"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            <span class="text-green-800 font-semibold">Stok Tersedia - Siap Kirim!</span>
+                        </div>
+                    </div>
+                </div>
+</div>
+        </div>
+    </section>
+    
+    <!-- Additional Product Images -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-black text-center mb-12" style="font-family: 'Lato', sans-serif;">Detail Produk</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0l-mcpszo6wazhr9d.webp" alt="Product Detail 1" class="w-full rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer" onclick="openLightbox(this.src)">
+                <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0h-mcpszo6w6rsf88.webp" alt="Product Detail 2" class="w-full rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer" onclick="openLightbox(this.src)">
+                <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0i-mcpszo6w86cv2f.webp" alt="Product Detail 3" class="w-full rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer" onclick="openLightbox(this.src)">
+                <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0t-mcpszo6wdsmn2f.webp" alt="Product Detail 4" class="w-full rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer" onclick="openLightbox(this.src)">
+                <img src="https://down-id.img.susercontent.com/file/id-11134207-7ra0k-mcpszo6w9kxbb7.webp" alt="Product Detail 5" class="w-full rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer" onclick="openLightbox(this.src)">
+                <img src="https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/4ea133345fcc445d83663809fa649831~tplv-aphluv4xwc-resize-webp:800:800.webp?dr=15584&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=my2&from=1826719393" alt="Product Detail 6" class="w-full rounded-lg shadow-lg hover:shadow-xl transition cursor-pointer" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-black text-center mb-12" style="font-family: 'Lato', sans-serif;">Testimoni Pelanggan</h2>
+            
+            <div class="testimonial-carousel relative">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                            <div class="flex items-start gap-4">
+                                <img src="https://i.pinimg.com/1200x/1c/47/cb/1c47cb6af14552d8a5c9a40ebc493dc3.jpg" alt="Customer" class="w-12 h-12 rounded-full">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="font-semibold">helmidharmawan</span>
+                                        <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                                    </div>
+                                    <p class="text-gray-700 mb-3">"nyaman dipakai dan lentur, semoga awet dan ga cepat hilang 😅"</p>
+                                    <img src="https://down-id.img.susercontent.com/file/id-11134103-7ra0g-mdq7523g7xjifc.webp" alt="Review" class="w-20 h-20 rounded cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+                                    <i data-feather="user" class="w-6 h-6"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="font-semibold">ican</span>
+                                        <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                                    </div>
+                                    <p class="text-gray-700 mb-3">"Kenyamanan: sandal nya empuk<br>Model: desain nya keren<br>Berat: sangat ringan pas di pakai"</p>
+                                    <img src="https://down-id.img.susercontent.com/file/id-11134103-81zth-me41vti1a9l26e.webp" alt="Review" class="w-20 h-20 rounded cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center">
+                                    <i data-feather="user" class="w-6 h-6"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="font-semibold">yudhistiradeandra</span>
+                                        <div class="text-yellow-500">⭐⭐⭐⭐⭐</div>
+                                    </div>
+                                    <p class="text-gray-700 mb-3">"Alhamdulillah akhirnya sampai mantap dan harga yg terjangkau tergolong murah dari pada toko² sebelah lumayan ngemat rekomen tokonya mantap 👍🏻👍🏻🌟🌟🌟"</p>
+                                    <img src="https://down-id.img.susercontent.com/file/id-11134103-81ztj-mf3mm0tg6vbcb7.webp" alt="Review" class="w-20 h-20 rounded cursor-pointer hover:opacity-80 transition" onclick="openLightbox(this.src)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Controls -->
+                <button onclick="previousTestimonial()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition">
+                    <i data-feather="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <button onclick="nextTestimonial()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition">
+                    <i data-feather="chevron-right" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <!-- Carousel Indicators -->
+            <div class="flex justify-center gap-2 mt-6">
+                <span class="w-2 h-2 bg-black rounded-full cursor-pointer" onclick="goToTestimonial(0)"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full cursor-pointer" onclick="goToTestimonial(1)"></span>
+                <span class="w-2 h-2 bg-gray-400 rounded-full cursor-pointer" onclick="goToTestimonial(2)"></span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing & Order Section -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <h2 class="text-3xl font-black text-center mb-8" style="font-family: 'Lato', sans-serif;">Promo Spesial Hari Ini!</h2>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown-timer">
+                    <div class="countdown-item">
+                        <span id="hours">02</span>
+                        <span class="countdown-label">Jam</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span id="minutes">45</span>
+                        <span class="countdown-label">Menit</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span id="seconds">30</span>
+                        <span class="countdown-label">Detik</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-8">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <span class="text-4xl font-bold text-red-600">Rp 178.000</span>
+                        <span class="text-2xl text-gray-500 line-through">Rp 299.000</span>
+                    </div>
+                    <p class="text-lg text-gray-600">Hemat Rp 121.000 (40% OFF)</p>
+                </div>
+                
+                <!-- OrderOnline Form -->
+                <div class="orderonline-embed-form">
+                    <!-- OrderOnline Embed Code - v8.0.4 -->
+                    <div class="ooef">
+                        <form class="orderonline-embed-form" data-username="mila" data-product-slug="sandal-baim-korea-style" data-product-id="68e608ccc4c798ec6f04ba3b" id="oo-embed-form-sandal-baim-korea-style-5534" data-origin="orderonline">
+                            <div class="ooef-loader">
+                                <style>
+                                    .ooef-loader{visibility: hidden;opacity: 0;position: absolute;left: 0;right: 0;top: 0;bottom: 0;display: flex;justify-content: center;align-items: center;flex-direction: column;animation: ooLoadingIn 10s ease;-webkit-animation: ooLoadingIn 10s ease;animation-fill-mode: forwards;overflow: hidden}@keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}@-webkit-keyframes ooLoadingIn{0%{visibility: hidden;opacity: 0}20%{visibility: visible;opacity: 0}100%{visibility: visible;opacity: 1}}.ooef-loader>div,.ooef-loader>div:after{border-radius: 50%;width: 2.5rem;height: 2.5rem}.ooef-loader>div{font-size: 10px;position: relative;text-indent: -9999em;border: .25rem solid #f5f5f5;border-left: .25rem solid #55c4cf;-webkit-transform: translateZ(0);-ms-transform: translateZ(0);transform: translateZ(0);-webkit-animation: ooLoading 1.1s infinite linear;animation: ooLoading 1.1s infinite linear}.ooef-loader.error>div{border-left: .25rem solid #ff4500;animation-duration: 5s}@-webkit-keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}@keyframes ooLoading{0%{-webkit-transform: rotate(0);transform: rotate(0)}100%{-webkit-transform: rotate(360deg);transform: rotate(360deg)}}
+                                </style>
+                                <div aria-live="polite" role="status">
+                                    <div>Loading...</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <script>
+                        if (typeof xLogError != 'function') {
+                            var xLogError = function (error) {
+                                var req = new XMLHttpRequest();
+                                var payload = JSON.stringify({
+                                    url: document.location.href,
+                                    line: error.line,
+                                    stack: error.stack
+                                });
+                                var params = 'message=' + encodeURIComponent(error.name) + '&payload=' + encodeURIComponent(payload) + '&type=embed&level=error';
+                                req.open('POST', 'https://api.orderonline.id/log', true);
+                                req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                req.send(params);
+                            };
+                        }
+                        try {
+                            if (typeof xEmbedScript != 'function') {
+                                var xEmbedScript = function () {
+                                    !function(w, d, e, v, id, t, s) {
+                                        if (d.getElementById(id)) return;
+                                        t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                                        s = d.getElementsByTagName(e)[0];
+                                        s.parentNode.insertBefore(t, s);
+                                    }(window, document, 'script', 'https://cdn.orderonline.id/js/embed-v2-slim.min.js?v=8.0.4', 'oo-embed-js');
+                                };
+                            }
+                            if (typeof xEmbedInit != 'function') {
+                                var xEmbedInit = function (w, n) {
+                                    if (w.ooe) return;
+                                    n = w.ooe = function() {
+                                        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                                    };
+                                    if (!w._ooe) w._ooe = n;
+                                    n.push = n;n.loaded = !0;n.version = '8.0.4';n.queue = [];
+                                };
+                            }
+                            xEmbedInit(window);
+                            ooe('setup', 'redirect', 'https://mila.orderonline.id');
+                            ooe('init', '5f1a7b8fa9bf807da24d83bb', '68e608ccc4c798ec6f04ba3b', '68e608ccc4c798ec6f04ba3c', 'oo-embed-form-sandal-baim-korea-style-5534', {
+                                "mode":"page",
+                                "action":"Klik untuk pemesanan",
+                                "title":"Form Pemesanan",
+                                "triggerPixel":false,
+                                "triggerGtm":false
+                            });
+                            if (!window.jQuery) {
+                                !function(w, d, e, v, id, t, s) {
+                                    if (d.getElementById(id)) return;
+                                    t = d.createElement(e);t.async = !0;t.src = v;t.id = id;
+                                    t.addEventListener('load', xEmbedScript);
+                                    s = d.getElementsByTagName(e)[0];
+                                    s.parentNode.insertBefore(t, s);
+                                }(window, document, 'script', 'https://cdn.orderonline.id/js/vendor/jquery.min.js', 'oo-embed-jquery');
+                            } else {
+                                xEmbedScript();
+                            }
+                        } catch (e) {
+                            xLogError(e);
+                            throw e;
+                        }
+                    </script>
+                    <!-- End OrderOnline Embed Code -->
+                </div>
+                
+                <!-- Payment Methods -->
+                <div class="mt-8 text-center">
+                    <p class="text-gray-600 mb-4">Metode Pembayaran:</p>
+                    <div class="flex justify-center gap-4 flex-wrap">
+                        <span class="bg-gray-100 px-4 py-2 rounded">BCA</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded">Mandiri</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded">BNI</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded">BRI</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded">Gopay</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded">OVO</span>
+                        <span class="bg-gray-100 px-4 py-2 rounded">DANA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImage">
+    </div>
+    
+    <!-- Social Proof Popup -->
+    <div id="socialProofPopup" class="social-proof-popup">
+        <div class="flex items-center gap-3">
+            <img id="socialProofAvatar" src="" alt="Customer" class="social-proof-avatar">
+            <div>
+                <p class="text-sm font-semibold" id="socialProofText"></p>
+                <p class="text-xs text-gray-500" id="socialProofTime"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sticky CTA -->
+    <div id="stickyCta" class="sticky-cta">
+        <div class="container mx-auto flex items-center justify-between">
+            <div>
+                <p class="font-bold">SANDAL BAIM KOREA STYLE</p>
+                <p class="text-sm">Rp 178.000 <span class="line-through text-xs">Rp 299.000</span></p>
+            </div>
+            <button onclick="scrollToProduct()" class="bg-white text-black px-6 py-2 rounded-full font-bold">
+                BELI SEKARANG
+            </button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h3 class="text-2xl font-bold mb-4">SANDAL BAIM KOREA STYLE</h3>
+            <p class="mb-6">Fashion Premium dengan Kenyamanan Maksimal</p>
+            <div class="flex justify-center gap-6 mb-6">
+                <i data-feather="mail" class="w-6 h-6 cursor-pointer"></i>
+                <i data-feather="phone" class="w-6 h-6 cursor-pointer"></i>
+                <i data-feather="message-circle" class="w-6 h-6 cursor-pointer"></i>
+            </div>
+            <p class="text-sm opacity-75">© 2024 Sandal Baim Korea Style. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize Feather Icons
+        feather.replace();
+        
+        // Testimonial Carousel
+        let currentTestimonial = 0;
+        const testimonialTrack = document.getElementById('testimonialTrack');
+        const totalTestimonials = 3;
+        
+        function showTestimonial(index) {
+            const offset = index * (100 / totalTestimonials);
+            testimonialTrack.style.transform = `translateX(-${offset}%)`;
+            
+            // Update indicators
+            document.querySelectorAll('.countdown-timer + div + .flex span').forEach((dot, i) => {
+                dot.classList.toggle('bg-black', i === index);
+                dot.classList.toggle('bg-gray-400', i !== index);
+            });
+        }
+        
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+            showTestimonial(currentTestimonial);
+        }
+        
+        function previousTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+            showTestimonial(currentTestimonial);
+        }
+        
+        function goToTestimonial(index) {
+            currentTestimonial = index;
+            showTestimonial(currentTestimonial);
+        }
+        
+        // Auto-scroll testimonials
+        setInterval(nextTestimonial, 5000);
+        
+        // Lightbox functionality
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = src;
+            lightbox.classList.add('active');
+        }
+        
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+        
+        // Change main product image
+        function changeMainImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+        // Color selection
+        function selectColor(element, color, imageUrl) {
+            document.querySelectorAll('.color-variant').forEach(variant => {
+                variant.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Update main image with color variant
+            if (imageUrl) {
+                document.getElementById('mainImage').src = imageUrl;
+            }
+        }
+        
+        // Size selection
+        function selectSize(element, size) {
+            document.querySelectorAll('.size-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+// Scroll to product section
+        function scrollToProduct() {
+            document.getElementById('product').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Social Proof Popup
+        const customerNames = ['Vina', 'Dina', 'Kartika', 'Lestari', 'Putri', 'Maya Sari', 'Rani', 'Permata', 'Lestari F'];
+        const customerCities = ['Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Bekasi', 'Tangerang', 'Depok', 'Semarang'];
+        const avatars = [
+            'https://i.pinimg.com/736x/7c/ae/2d/7cae2d608533ea53a87954bdddaf87db.jpg',
+            'https://i.pinimg.com/736x/1a/16/35/1a16353cf9889a9074af44f0d038bca3.jpg',
+            'https://i.pinimg.com/736x/21/99/58/2199588eac3ba7e5548c3cc8fcfd9b21.jpg',
+            'https://i.pinimg.com/736x/0c/29/32/0c2932e0e226da87256b40ffbeaed302.jpg',
+            'https://i.pinimg.com/736x/85/a3/64/85a364903e1a59cfedd68e1dc32f202b.jpg',
+            'https://i.pinimg.com/736x/04/03/c1/0403c15bbb473a3eb0e98fff4b88e0e2.jpg',
+            'https://i.pinimg.com/736x/ca/07/09/ca07097de9245bcbdd52686cd1ad932e.jpg',
+            'https://i.pinimg.com/736x/43/6b/30/436b30945955ec8bea9c4a80eb486557.jpg'
+        ];
+        
+        function showSocialProof() {
+            const popup = document.getElementById('socialProofPopup');
+            const name = customerNames[Math.floor(Math.random() * customerNames.length)];
+            const city = customerCities[Math.floor(Math.random() * customerCities.length)];
+            const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+            const minutesAgo = Math.floor(Math.random() * 15) + 1;
+            
+            document.getElementById('socialProofText').textContent = `${name} dari ${city} baru saja memesan SANDAL BAIM KOREA STYLE`;
+            document.getElementById('socialProofTime').textContent = `${minutesAgo} menit yang lalu`;
+            document.getElementById('socialProofAvatar').src = avatar;
+            
+            popup.classList.add('active');
+            
+            setTimeout(() => {
+                popup.classList.remove('active');
+            }, 5000);
+        }
+        
+        // Show social proof every 8 seconds
+        setInterval(showSocialProof, 8000);
+        showSocialProof(); // Show first one immediately
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const endTime = new Date();
+            endTime.setHours(23, 59, 59);
+            
+            const diff = endTime - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Sticky CTA
+        window.addEventListener('scroll', () => {
+            const stickyCta = document.getElementById('stickyCta');
+            const productSection = document.getElementById('product');
+            const productTop = productSection.offsetTop;
+            
+            if (window.scrollY > productTop + 500) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
